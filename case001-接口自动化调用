@@ -1,0 +1,22 @@
+from datetime import datetime
+curtime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+from lib import *
+ret,sessionid = login_course("auto","sdfsdfsdf")
+
+courselistbefore = list_course(sessionid)["retlist"]
+name = "python"+curtime
+ret = add_course(name,"python",2,sessionid)
+if ret["retcode"] == 0:
+    print('返回的retcode为0')
+else:
+    print("返回的retcode不为0")
+courselistafter = list_course(sessionid)["retlist"]
+assert len(courselistafter) -len(courselistbefore) ==1
+outdic = None
+for one in courselistafter:
+    if one not in courselistbefore:
+        outdic = one
+assert outdic["name"] == name
+assert outdic["desc"] == "python"
+assert outdic["display_idx"] == 2
+print('\n ====== testcase pass ========')
