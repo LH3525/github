@@ -1,0 +1,30 @@
+import requests
+import json
+import pprint
+# global sessionid
+def login_course(username,password):
+    payload = {"username":username,"password":password}
+    headers = {"Content-Type":"application/x-www-form-urlencoded"}
+    res = requests.post("http://localhost/api/mgr/loginReq",headers = headers,data = payload)
+    ret = res.json()
+    pprint.pprint(ret)
+    # sessionid = res.cookies['sessionid']
+    # print(sessionid)
+    return ret,res.cookies['sessionid']
+
+def add_course(name,desc,idx,sessionid):
+    payload = {"action" :"add_course","data":'{"name":"%s","desc":"%s","display_idx":%s}'%(name,desc,idx)}
+    headers = {"Content-Type":"application/x-www-form-urlencoded"}
+    res = requests.post("http://localhost/api/mgr/sq_mgr/",headers = headers,data = payload,cookies = {"sessionid":sessionid})
+    ret = res.json()
+    pprint.pprint(ret)
+    return ret
+
+def list_course(sessionid):
+    res = requests.get("http://localhost/api/mgr/sq_mgr/?action=list_course&pagenum=1&pagesize=20",cookies = {"sessionid":sessionid})
+    ret = res.json()
+    pprint.pprint(ret)
+    return ret
+# ret,sessionid = login_course("auto","sdfsdfsdf")
+# list_course(sessionid)
+# # # add_course("java","java",2)
