@@ -1,0 +1,52 @@
+# import xlrd
+# book = xlrd.open_workbook('income.xlsx')
+# print(f"表单数量{book.nsheets}")
+# print(f"表单名字{book.sheet_names()}")
+# # 表单索引从0开始，获取第一个表单对象
+# sheet = book.sheet_by_index(0)
+# # 获取名为2018的表单对象
+# book.sheet_by_name('2018')
+# # 行号、列号都是从0开始计算
+# print(f"单元格A1的内容是:{sheet.cell_value(rowx=0,colx=0)}")
+
+
+# 创建Excel并写入数据
+# 如果你要创建一个新的Excel并写入数据，可以使用 xlwt库
+
+import xlwt
+
+name2Age = {
+    '张飞' :  38,
+    '赵云' :  27,
+    '许褚' :  36,
+    '典韦' :  38,
+    '关羽' :  39,
+    '黄忠' :  49,
+    '徐晃' :  43,
+    '马超' :  23,
+}
+
+# 创建一个Excel workbook 对象
+book = xlwt.Workbook()
+
+# 增加一个名为 '年龄表' 的sheet
+sh = book.add_sheet('年龄表')
+sh.write(0,0,'姓名')
+sh.write(0,1,'年龄')
+
+row = 1
+for name,age in name2Age.items():
+    sh.write(row,0,name)
+    sh.write(row,1,age)
+    row +=1
+book.save('年龄表.xls')
+
+import xlrd
+book = xlrd.open_workbook('年龄表.xls')
+print(f"表单数量{book.nsheets}")
+print(f"表单名字{book.sheet_names()}")
+# 表单索引从0开始，获取第一个表单对象
+sheet = book.sheet_by_index(0)
+# 行号、列号都是从0开始计算
+print(f"第2列内容是:{sheet.col_values(colx=1)}")
+print(f"第1列内容是:{sheet.col_values(colx=0)}")
