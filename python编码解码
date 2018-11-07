@@ -1,0 +1,8 @@
+with open('cfiles/gbk编码.txt',encoding='gbk')as gf,open('cfiles/utf8编码.txt',encoding='utf8')as uf:
+    content1 = gf.read()
+    content2 = uf.read()
+    newcontent = content1+'\n'+ content2
+print(newcontent)
+newfile = input('请输入新文件名称: ')
+with open(newfile,'w',encoding='utf8') as wf:
+    wf.write(newcontent)
