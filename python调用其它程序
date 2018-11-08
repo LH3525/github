@@ -1,0 +1,37 @@
+notepadexepath = r'"D:\Notepad++\notepad++.exe"'
+scriptpath = r'D:\Pycham\Data\Pr1\scripts.txt'
+from subprocess import Popen,PIPE
+import  os,sys
+import time
+cmd = f'{notepadexepath} {scriptpath}'
+p = Popen(args=cmd,shell=True)
+
+time.sleep(10)
+
+# 返回的是 Popen 实例对象
+
+p = Popen(
+    'tasklist',
+    stdin= None,
+    stdout=PIPE,
+    stderr=None,
+    shell=True,
+    encoding='gbk')
+# communicate 方法返回 输出信息
+outinfo,errinfo = p.communicate()
+# 注意返回的内容是bytes 不是 str ，
+# 我的是中文windows，所以用gbk解码
+# outstr = outinfo.decode('gbk')
+relist = outinfo.splitlines()
+for one in relist:
+    if 'notepad++.exe ' in one:
+        print(one)
+        outlist = one.split(' ')
+        resultlist = [info for info in  outlist if info]
+        pid = resultlist[1]
+        print(f'notepad++.exed的进程号是{pid}')
+        break
+if pid is None:
+    print('没有找到notepad++.exed的进程')
+    sys.exit(2)
+os.system(f'taskkill /PID {pid} /F')
