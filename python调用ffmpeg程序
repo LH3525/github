@@ -1,0 +1,53 @@
+from subprocess import Popen,PIPE
+import sys,os,time,glob
+from datetime import datetime
+VIDEO_DIR  = 'D:\\'
+ffmpegpath = r'D:\ffmpeg\ffmpeg\bin\ffmpeg.exe'
+def recoding():
+    outputfile = VIDEO_DIR + datetime.now().strftime('%Y%m%d_%H%M%S') + '.mp4'
+    print(outputfile)
+    # input(" 请选择您要做的操作：1：录制视频，2：合并视频：")
+    scripts = '-f gdigrab -framerate 30 -offset_x 0 -offset_y 0 -video_size 1600x900 -i desktop "%s"'%outputfile
+
+    # settings = '-y -rtbufsize 100M -f gdigrab -framerate 20 ' + \
+    #            '-draw_mouse 1 -i desktop -c:v libx264 -r 20 ' + \
+    #            '-crf 35 -pix_fmt yuv420p ' \
+    #            '-fs 100M   "%s"' % outputfile
+
+    cmdline = ffmpegpath + ' ' + scripts
+    os.system(cmdline)
+
+def concating():
+    os.chdir(VIDEO_DIR)
+    filelist = glob.glob(VIDEO_DIR+ "*.mp4")
+    #返回path最后的文件名
+    filelist = [os.path.basename(one) for one in filelist]
+    # print(filelist)
+    if filelist:
+        print("目录中有这些文件:")
+    else:
+        print("目录中没有这些文件")
+    idx = 1
+    for one in filelist:
+        print('%s-%s'%(idx,one))
+    print("选择要合并视频的视频文件序号(格式 1,2,3,4) ")
+    concatingresult = input()
+    concatingstr = concatingresult.split(',')
+    concatingres = [filelist[int(one.strip())-1]for one in concatingstr]
+    print(concatingres)
+
+    with open('concat.txt','w') as wf:
+        for one in concatingres:
+            wf.write('file'+ ' '+ one + '\n')
+    scripts = '-f concat -i concat.txt -codec copy out.mp4'
+
+    cmd = ffmpegpath + " " +scripts
+    os.system(cmd)
+
+while True:
+    print('请选择您要做的操作：1：录制视频，2：合并视频：')
+    chioce = input()
+    if chioce == '1':
+        recoding()
+    elif chioce == '2':
+        concating()
