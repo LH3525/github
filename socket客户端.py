@@ -4,7 +4,7 @@ PORT = 21567
 BUFSIZ = 1024
 ADDR = (HOST,PORT)
 #指明协议
-tcpclisock = socket(AF_INET,SOCK_STREAM)
+tcpclisock = socket(AF_INET,SOCK_STREAM)#AF_INET表示IP_4协议，SOCK_STREAM表示tcp协议
 tcpclisock.connect(ADDR)
 while True:
     data = input('>>')
