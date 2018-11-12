@@ -1,0 +1,31 @@
+# coding=utf8
+import requests
+import threading
+urls = ['http://mirrors.163.com/centos/6/isos/x86_64/README.txt','http://mirrors.163.com/centos/7/isos/x86_64/0_README.txt']
+# 对应urls 依次存储网页文件内容, 先创建同样个数的元素占位
+filecontentlist = [None for one in urls]
+lock = threading.Lock()
+def thread_entry(idx,url):
+    print("线程 #%s start"%idx)
+    r = requests.get(url)
+    lock.acquire()
+    filecontentlist[idx] = r.text
+    lock.release()
+    print("线程 #%s end"%idx)
+if __name__ == '__main__':
+    print('main 线程开始')
+    threadpool = []
+    for idx,url in enumerate(urls):
+        t = threading.Thread(target=thread_entry,args=(idx,url))
+        t.start()
+        threadpool.append(t)
+    for t in threadpool:
+        t.join()
+    concatfile = '\n\n'.join(filecontentlist)
+
+    print(concatfile)
+    with open('readme890.TXT','w',encoding=('utf8')) as wf:
+        wf.write(concatfile)
+    print('main 线程 end')
+
+
