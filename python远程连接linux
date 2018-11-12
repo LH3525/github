@@ -7,6 +7,7 @@ ssh.exec_command(cmd)
 cmd = '''echo '12345678
 90bc' > bc.txt
 '''
+#同时执行多条命令用;隔开
 ssh.exec_command(cmd)
 cmd = 'cat bc.txt'
 stdin,stdout,stderr = ssh.exec_command(cmd)
