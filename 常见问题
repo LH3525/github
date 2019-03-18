@@ -59,4 +59,4 @@ Linux常用命令：https://www.songqinnet.com/article/844
 Linux安装Metasploit：curl https://raw.githubusercontent.com/rapid7/metasploit-omnibus/master/config/templates/metasploit-framework-wrappers/msfupdate.erb > msfinstall && \
 chmod 755 msfinstall && \
 ./msfinstall
-
+微信缓存清理：http://debugx5.qq.com
