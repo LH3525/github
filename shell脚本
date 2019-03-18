@@ -1,0 +1,64 @@
+select菜单:
+#!/bin/bash
+psd="please input your program"
+select program in  'ls -l' pwd  who  'ps -ef'
+do
+        $program
+done
+
+定义函数：
+1:function   sayhello{
+
+}
+2:sayhello(){
+}
+
+
+监控/usr
+#!/bin/bash
+while true
+do
+	sleep 600
+	n=$(du -s /usr |cut -f1)
+	if [ $n -gt 5242880 ]
+	then
+		mail -s "greater"  fileway@gmail.com<~/filename  #将文件filename的内容发送出去
+
+快速添加50个账号：
+#！/bin/bash
+i=0
+while [ i -le 50 ]
+do
+	let i++
+		useradd stud$i
+done
+
+读取配置文件：host=101.1.80
+	       port=80
+脚本：#!/usr/bin/env bash
+while read line
+do
+  name=`echo $line |awk -F '=' '{print $1}'`
+  value=`echo $line |awk -F '=' '{print $2}'`
+  echo "name is ${name},value is ${value}"
+done<config.sh
+
+清理日志文件：
+#!/bin/bash
+while true
+do
+        fcount=$(ls -ltr |grep log$|wc -l)
+        if [ $fcount -gt 9 ]
+        then
+          dfile=$(ls -ltr |grep log$|awk 'NR==1 {print $9}')
+          echo "delete file:$dfile"
+          rm -rf $dfile
+        else
+          echo "file count <9"
+        fi
+          sleep 5
+done
+      
+
+
+
