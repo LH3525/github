@@ -58,7 +58,30 @@ do
         fi
           sleep 5
 done
-      
+shell创建大数据量：
+#!/bin/bash
+filename="user.txt"
+if [ -e "$filename" ]
+then
+        echo "clean up old file"
+        rm -rf $filename
+fi
+phone_start="138"
+ipv4_start="ox"
+email_end="qq.com"
+declare -i s_loop=11000001
+declare -i ip_loop=0
+declare -i e_loop=12000001
+echo "generate 1 million date"
+date
+while [ $s_loop  -lt $e_loop ]
+do
+echo "$phone_start$s_loop:$ipv4_start$s_loop:$phone_start$s_loop@email_end">>$filename
+s_loop=$(($s_loop + 1))
+done
+echo $s_loop
+date
+
 
 
 
