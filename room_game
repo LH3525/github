@@ -61,3 +61,5 @@ while True:
         break
 for index,room in enumerate(Rooms):
     print(index,room.animal.name,room.animal.weight)
+
+
