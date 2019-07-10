@@ -1,0 +1,63 @@
+from random import randint
+import  time
+
+class Tiger:
+    name = "Tiger"
+    def __init__(self,weight=200):
+        self.weight=weight
+    def roar(self):
+        print("WoW!!")
+        self.weight-=5
+    def feed(self,food):
+        if food =="meet":
+            self.weight+=10
+            print("good,weight+10")
+        else:
+            self.weight-=10
+            print("bad,weight-10")
+
+
+class Sheep:
+    name = "Sheep"
+    def __init__(self,weight=100):
+        self.weight=weight
+    def roar(self):
+        print("mie～～～～")
+        self.weight-=5
+    def feed(self,food):
+        if food =="grass":
+            self.weight+=10
+            print("good,weight+10")
+        else:
+            self.weight-=10
+            print("bad,weight-10")
+
+class Room:
+    def __init__(self,num,animal):
+        self.num = num
+        self.animal = animal
+Rooms=[]   #初始化10个房间
+for no in range(10):
+    if randint(0,1):
+        ani = Tiger(200)
+    else:
+        ani = Sheep(100)
+    room = Room(no,ani)
+    Rooms.append(room)
+
+
+startTime = time.time()
+while True:
+    roomno = randint(1,10)
+    room = Rooms[roomno-1]
+    ch = input("欢迎来到#%s房间，要不要敲门?[y/n]"% roomno)
+    if(ch =='y'):
+        room.animal.roar()
+    food = input("要给动物喂食吗：")
+    room.animal.feed(food)
+    EndTime = time.time()
+    if (EndTime - startTime) >10:
+        print("\n\n*****************游戏结束*****************\n\n")
+        break
+for index,room in enumerate(Rooms):
+    print(index,room.animal.name,room.animal.weight)
