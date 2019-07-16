@@ -1,0 +1,22 @@
+import sys,os
+casefile = "tclist.txt"
+#先产生参数文件
+with open(casefile) as inf,open('arg.txt','w')as outf:
+    #产生用例列表
+    arglines=[]
+    icontent = inf.read().replace('\n','')
+    cases = icontent.split('|')
+    for case in cases:
+        case=case.strip()
+        if case:
+            arglines.append('--test*'+case)
+     #去除重复部分
+    arglines = list(set(arglines))
+    #生成用例列表参数
+    argstr='\n'.join(arglines)
+    #加上其他参数
+    argstr+='\n--pythonpath'
+    argstr+='\ntc'
+    print(argstr)
+    #执行自动化测试
+    os.system('robot --loglevel debug -A args.txt')
