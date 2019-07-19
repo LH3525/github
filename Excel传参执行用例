@@ -18,5 +18,6 @@ with open(casefile) as inf,open('arg.txt','w')as outf:
     argstr+='\n--pythonpath'
     argstr+='\ntc'
     print(argstr)
+    outf.write(argstr)
     #执行自动化测试
     os.system('robot --loglevel debug -A args.txt')
