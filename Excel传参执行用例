@@ -15,7 +15,7 @@ with open(casefile) as inf,open('arg.txt','w')as outf:
     #生成用例列表参数
     argstr='\n'.join(arglines)
     #加上其他参数
-    argstr+='\n--pythonpath'
+    argstr+='\n--pythonpath .'
     argstr+='\ntc'
     print(argstr)
     outf.write(argstr)
