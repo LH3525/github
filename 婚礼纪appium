@@ -1,0 +1,48 @@
+'''
+#婚礼纪移动端自动化
+#点击结婚用品按钮，获得主菜单
+新娘礼服|婚房布置|婚鞋婚包|喜糖请柬|迎亲堵门|新郎穿搭|新娘嫁妆|婚宴现场|睡衣胸贴|全部分类
+'''
+from appium import webdriver
+import time,traceback
+
+desired_caps = {}
+desired_caps['platformName'] = 'Android'
+desired_caps['platformVersion'] = '8.0'
+desired_caps['deviceName'] = 'test'
+# desired_caps['app'] = r'D:\hunliji.apk'
+desired_caps['appPackage'] = 'me.suncloud.marrymemo'
+desired_caps['appActivity'] = 'me.suncloud.marrymemo.view.SplashActivity'
+desired_caps['unicodeKeyboard']  = True
+desired_caps['resetKeyboard']  = True
+desired_caps['noReset'] = True
+desired_caps['newCommandTimeout'] = 6000
+#启动Remote RPC
+driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
+
+try:
+    expected = '新娘礼服|婚房布置|婚鞋婚包|喜糖请柬|迎亲堵门|新郎穿搭|新娘嫁妆|婚宴现场|睡衣胸贴|全部分类'
+    driver.implicitly_wait(10)
+    # 根据text属性找到结婚用品按钮
+    code = 'new UiSelector().text("结婚用品")'
+    driver.find_element_by_android_uiautomator(code).click()
+    code = 'new UiSelector().resourceId("me.suncloud.marrymemo:id/tv_title")'
+    #获取主菜单
+    eles = driver.find_elements_by_android_uiautomator(code)
+    eleTexts = [ele.text for ele in eles]
+    result = '|'.join(eleTexts)
+    print(result)
+    if expected == result:
+        print("主菜单page pass!")
+    else:
+        print("主菜单page fail!")
+    #获取主菜单输入框
+    code = 'new UiSelector().resourceId("me.suncloud.marrymemo:id/marquee_view")'
+    ele = driver.find_element_by_android_uiautomator(code)
+    ele.send_keys("婚鞋")
+    driver.keyevent(66)
+    driver.press_keycode(66)
+except:
+    print (traceback.format_exc())
+
+driver.quit()
