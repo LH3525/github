@@ -1,0 +1,48 @@
+import MySQLdb
+class MysqlConnect:
+    def __init__(self,host,port,db,username,password,charset='utf8'):
+        self.host = host
+        self.port = port
+        self.db = db
+        self.username = username
+        self.password = password
+        self.charset = charset
+    #连接数据库
+    def open(self):
+        self.conn = MySQLdb.connect(host=self.host,
+                                    port=self.port,
+                                    db=self.db,
+                                    user=self.username,
+                                    passwd=self.password,
+                                    charset=self.charset)
+        self.cursor = self.conn.cursor()
+        return  self.cursor
+    #关闭数据库
+    def close(self):
+        self.conn.close()
+    #查询数据方法
+    def findAll(self,sql):
+        try:
+            self.open()
+            self.cursor.execute(sql)
+            result = self.cursor.fetchall()
+            self.close()
+            return result
+        except Exception as e:
+            print(e)
+    #修改数据
+    def update(self,sql):
+        try:
+            self.open()
+            self.cursor.execute(sql)
+            self.conn.commit()
+            self.close()
+        except Exception as e:
+            print(e)
+# if __name__ == "__main__":
+#     test = MysqlConnect("localhost",3306,"crashcourse","root","123456")
+#     test.open()
+#     result = test.findAll("select * from customers")
+#     print(result)
+
+
