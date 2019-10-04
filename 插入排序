@@ -1,0 +1,12 @@
+a = [9,30,20,15,48,23,55]
+b = len(a)
+for j in  range(1,b):
+    i =j
+    while i>0: #有序列表最后一个元素进行比较
+        if a[i] < a[i-1]:
+            a[i],a[i-1] = a[i-1],a[i]   #如果当前元素比较小，则进行交换
+        else:
+            break
+        i-=1
+
+print(a)
