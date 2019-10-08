@@ -1,0 +1,36 @@
+class Stack:
+    def __init__(self):
+        self.__list=[]
+    #是否是空栈
+    def is_empty(self):
+        return  self.__list==[]
+    #压栈，添加元素
+    def push(self,item):
+        self.__list.append(item)
+    #出栈，弹出元素
+    def pop(self):
+        return  self.__list.pop()
+    #返回栈顶元素
+    def peek(self):
+        return self.__list[len(self.item)-1]
+    #栈的大小
+    def size(self):
+        return len(self.__list)
+
+
+
+
+if __name__ == '__main__':
+    stack = Stack()
+    print('是否是空栈:',stack.is_empty())
+    stack.push(0)
+    stack.push(1)
+    stack.push(2)
+    stack.push(3)
+    stack.push(4)
+    print("栈的长度:",stack.size())
+    print('是否是空栈:', stack.is_empty())
+    print(stack.pop())
+    print(stack.pop())
+    print(stack.pop())
+    print(stack.pop())
