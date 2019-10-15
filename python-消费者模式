@@ -1,0 +1,27 @@
+import threading
+import time
+from queue import Queue
+class Producer(threading.Thread):
+    def run(self) :
+        global queue
+        queue = Queue()
+        count =0
+        while True:
+            if queue.qsize()<1000:
+                for i in range(100):
+                    count +=1
+                    queue.put(i)
+                    print("生产了%d数据"%count)
+                time.sleep(0.5)
+
+class Consumer(threading.Thread):
+
+    def run(self) :
+        global queue
+        count =0
+        while True:
+            if queue.qsize()>100:
+                for i in range(3):
+                    count +=1
+                    print(self.name+"消费了数据"+queue.get())
+            time.sleep(1)
