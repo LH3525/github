@@ -1,0 +1,21 @@
+#md5加密
+# import  hashlib
+# str = "hello"
+# md5 = hashlib.md5(str.encode("utf-8"))
+# print(md5.hexdigest())
+
+
+#base64加密
+# import  base64
+# str = "hello"
+# str = base64.b64encode(str.encode("utf-8"))
+# print(str)
+
+#RSA加密
+# import  rsa
+# a = "Hello"
+# (pubKey,privkey) = rsa.newkeys(1024)
+# str1 = rsa.encrypt(a.encode("utf-8"),pubKey)
+# print(str1)
+# str2 = rsa.decrypt(str1,privkey)
+# print(str(str2,encoding="utf-8"))
